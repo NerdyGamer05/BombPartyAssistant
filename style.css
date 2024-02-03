@@ -1,0 +1,81 @@
+body {
+    width: 100%;
+    height: 100%;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    color: black;
+    font-family: 'Vina Sans', sans-serif;
+}
+
+.button:focus,.button:active {
+    outline: 0;
+    box-shadow: none;
+    color: red;
+}
+
+.parent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+
+#options {
+    margin: 10px 0;
+    margin-top: -7px;
+    margin-bottom: 15px;
+}
+
+#options label {
+    font-size: .9em;
+}
+
+#syllable {
+    font-size: 2.5em;
+    color: red;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+#words {
+    margin-top: 7px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: fit-content;
+}
+
+.words-container {
+    width: auto;
+    height: fit-content;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 1em 1em;
+    border: 2px solid #666;
+    border-radius: 8px;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 0.5em 0.75em 1.15em;
+}
+
+.words-container p {
+    text-transform: lowercase;
+    margin-top: auto;
+    margin-bottom: 0;
+    word-spacing: 0.75em;
+    text-align: center;
+}  
+
+span.red {
+    color: red;
+    font-weight: lighter;
+}

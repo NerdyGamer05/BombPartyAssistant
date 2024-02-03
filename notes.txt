@@ -1,0 +1,85 @@
+Check to-do bookmark folder for extension reference
+
+Allow the user to open and configure the options for the sidebar
+
+Make sure that the sidebar stays open even when the user is interacting with the page
+
+Prevent the launching of the sidebar if you are not in a game
+
+
+Use this to figure out how to send messages between the content script and the background script. 
+Hopefully this will allow me to interact with the iframe and extract the syllable (div.syllable) from it and sent it to the sidebar to display words
+
+https://stackoverflow.com/questions/32777310/messaging-between-content-script-and-background-page-in-a-chrome-extension-is-no
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+Almost works completely. The current issues are:
+- When you activate the assistant then exit the current window the script injection process doesn't work (the element is being found for some reason) [WRONG]
+    * Possible fix: Check the return result from browser.tabs.executeScript() [https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/tabs/executeScript]
+- It doesn't work when I'm actually in a game... it only works when I'm spectating (WTF) [WRONG]
+
+
+Okay... I'm not really sure what is happening... it works sometimes and other times it doesn't work... It appears to only work when the extension is launched when the game has started
+- Tried using regex for url to only work in games  (not tested yet)
+[STILL DONT KNOW WHAT HAPPENED, BUT IT APPEARS TO BE WORKING - USED WEBNAVIGATION LISTENER TO FIX? (nah); I think that you need permissions on for site access]
+
+NVM... STILL DOESNT F***ING WORK??? WTF IS HAPPENING
+
+New idea:
+- Create special category of "optimal words"
+    * Inject a script that listeners for key presses. When enter is pressed, it should extract the information in the text box (or use some other trick)
+    * Keep track of the bonus letters on the script
+
+
+When the join game button is found, the letters should be reset (room is not necessary?)
+
+For successful input, current min time is 85 and current max time is 243.
+
+Code for processing console.log() and get all times
+
+const regex = /(?:word send time: )(\d+)\s/g;
+
+// Array to store matches
+const matches = [];
+let match;
+
+while ((match = regex.exec(str)) !== null) {
+    // match[1] contains the captured number
+    matches.push(+match[1]);
+}
+
+console.log(matches);
+console.log(Math.min(...matches));
+console.log(Math.max(...matches));
+
+Alright... it seems like the timing is not going to work OR it will just work sometimes and will catch bad words other times
+
+Possible ideas:
+- Look for bonus words being stored secretly
+- Check for internal events [socket.emit()]
+- Wait for success sound to be played? (or latch onto event/socket)
+- Look at the following:
+    * wordInput_onInput
+    * selfTurnForm_onSubmit
+    * socket.emit => "setWord"
+
+Solved? Solution below:     
+
+milestone.playerStatesByPeerId[selfPeerId].bonusLetters contains the bonus letters for a given user (selfPeerId)
+Simply send this back when the input is hidden (we dont care if the user successfully submitted a word; we only cared about then when we were tracking bonus letters manually)
+
+Use rules.customBonusAlphabet.value to fetch the bonus alphabet that is beign used in a current game
+
+Code for getting bonus letter rules (not sure if it works depending on the fuctionality of receiving a letter with a count greater than one):
+
+DONT NEED THIS LOL
+
+keys = Object.keys(rules.customBonusAlphabet.value);
+arr = [];
+for (const key of keys) {
+    if (rules.customBonusAlphabet.value[key] > 0) {
+        arr.push(key);
+  }
+}
+console.log(arr); 

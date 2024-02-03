@@ -1,0 +1,34 @@
+{
+    "manifest_version": 2,
+    "name": "BombPartyAssistant",
+    "version": "1.0",
+    "description": "Assists you in the game Bomb Party by providing you with words that you can use",
+    "default_locale": "en",
+  
+    "icons": {
+      "48": "icons/bomb_48.png",
+      "96": "icons/bomb_96.png"
+    },
+
+    "permissions": ["activeTab", "menus", "tabs", "scripting", "webNavigation", "storage", "https://phoenix.jklm.fun/*", "https://falcon.jklm.fun/", "https://jklm.fun/*"],
+
+    "browser_action": {
+      "default_icon": "icons/bomb_48.png",
+      "default_title": "Bomb Party"
+    },
+
+    "sidebar_action": {
+      "default_icon": {
+        "48": "icons/bomb_48.png",
+        "96": "icons/bomb_96.png"
+      },
+      "default_title": "Bomb Party Assistant!",
+      "default_panel": "html/sidebar.html",
+      "open_at_install": false
+    },
+
+    "background": {
+      "scripts": ["js/menu.js"]
+    },
+    "content_security_policy": "script-src 'self'; object-src 'self';"
+  }
