@@ -1,0 +1,6 @@
+old_words.txt
+.vscode/
+js/popup.js
+js/content_script.js
+html/success.html
+html/popup.html
