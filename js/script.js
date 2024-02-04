@@ -40,14 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('btncheck4').checked = true;
             rules.best = true;
         }
-        /*
-        if (res.bonus) {
-            bonusLetters.clear();
-            bonusLetters.add(...res.bonus);
-        }
-        */
     });
-    console.log('updating sidebar and sending data (dom load)');
     sendData();
     updateSidebar(syllable);
     if (window.loadWords !== true) {
@@ -66,7 +59,6 @@ const sendData = () => {
     browser.runtime.sendMessage({
         action: 'initialization',
     });
-    console.log('sending initialization');
 }
 
 const setRules = () => {
@@ -124,7 +116,6 @@ const findBestWords = (active) => {
         return b.count - a.count;
     }).slice(0,10).forEach((elm,index) => {
         // Add the word to the output
-        // res += (elm.count ? elm.word + ' ' : '');
         res += (elm.count ? elm.word : `<span class="red">${elm.word}</span>`) + ' ';
     });
     return res.trim();
@@ -139,7 +130,6 @@ const updateSidebar = (syllable) => {
         return;
     }
     syllable_elm.innerHTML = syllable;    
-    // TODO implement smart filtering (nah)
     const active = wordsList.filter(elm => elm.includes(syllable));
     if (rules.best) {
         best.lastElementChild.innerHTML = findBestWords(active) || '😟';
@@ -170,7 +160,6 @@ const updateSidebar = (syllable) => {
 browser.runtime.onMessage.addListener(message => {
     if (message.action === 'syllable') {
         syllable = message.data.toLowerCase();
-        console.log(`Received syllable: ${syllable}`);
         updateSidebar(syllable);
     } else if (message.action === 'alphabet') {
         const letters = message.data.split('');
@@ -181,7 +170,6 @@ browser.runtime.onMessage.addListener(message => {
         for (const letter of letters) {
             bonusLetters.add(letter);
         }
-        console.log(letters.join(''));
         updateSidebar(syllable);
     }
 });
