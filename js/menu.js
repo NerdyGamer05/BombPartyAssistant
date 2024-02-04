@@ -20,7 +20,7 @@ const attachMutationObserver = () => {
             elm = document?.querySelector('div.syllable');
             input = document?.querySelector('.selfTurn input');
             if (elm) {
-                console.log("FOUND ELEMENT");
+                // console.log("FOUND ELEMENT");
                 // Initial update
                 browser.runtime.sendMessage({
                     action: 'syllable',
@@ -117,7 +117,7 @@ const attachMutationObserver = () => {
         runAt: "document_end"
     })
     .then(res => {
-        console.log('Successfully injected script into iframe', res);
+        // console.log('Successfully injected script into iframe', res);
     }).catch(err => {
         console.error('Error executing script:', err);
     });
@@ -180,7 +180,6 @@ browser.webNavigation.onCompleted.addListener(details => {
 browser.runtime.onMessage.addListener(message => {
     if (message.action == 'initialization') {
         browser.tabs.query({ active: true, currentWindow: true }, tabs => {
-            // attachMutationObserver();
             updateSidebarPanel(tabs[0].url);
         });
     }
